@@ -42,7 +42,7 @@
       height: 100%;
       overflow: hidden;
       font-family: var(--sans);
-      font-size: 3.9mm; /* +~20% base */
+      font-size: 4.1mm; /* +~20% base */
       line-height: 1.6; /* min 1.5 for readability */
       color: var(--white-soft);
       -webkit-print-color-adjust: exact;
@@ -114,9 +114,9 @@
       position: relative;
       overflow: hidden;
       display: grid;
-      grid-template-rows: auto auto 1fr;
+      grid-template-rows: auto 1fr auto auto;
       grid-template-columns: 1fr;
-      gap: 0;
+      row-gap: 2mm;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       padding: 6mm var(--page-margin) 8mm;
     }
@@ -124,35 +124,39 @@
     .page > * { position: relative; z-index: 1; }
 
     /* ============================================
-       HEADER - Full width (compact)
+       HEADER - White bar, logos left, title right
        ============================================ */
     .header {
       display: grid;
       grid-template-columns: auto 1fr;
       grid-template-rows: 1fr;
       align-items: center;
-      gap: 3mm;
-      padding: 0 0 1.5mm;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      gap: 4mm;
+      background: #FFFFFF;
+      padding: 5mm 6mm;
+      margin: 0 calc(-1 * var(--page-margin));
+      border-bottom: 2px solid #D4AF37;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .logos {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
       flex-shrink: 0;
     }
 
     .logo-placeholder {
-      width: 30mm;
-      height: 14mm;
-      min-width: 30mm;
-      min-height: 14mm;
+      width: 38mm;
+      height: 18mm;
+      min-width: 38mm;
+      min-height: 18mm;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--white);
+      background: transparent;
       overflow: hidden;
     }
 
@@ -192,28 +196,27 @@
     .headline {
       font-family: var(--serif);
       font-weight: 700;
-      font-size: 6.5mm;
+      font-size: 6.7mm;
       letter-spacing: 0.06em;
-      color: var(--gold);
+      color: #0a1628;
     }
 
     .subheadline {
       font-family: var(--sans);
-      font-size: 2.6mm;
+      font-size: 2.8mm;
       font-weight: 500;
       letter-spacing: 0.03em;
-      color: rgba(255, 255, 255, 0.9);
+      color: #0a1628;
       margin-top: 0.2mm;
     }
 
-    /* ----- STATS STRIP (horizontal badges below header) ----- */
+    /* ----- STATS STRIP (horizontal badges above footer) ----- */
     .stats-strip {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.5mm 2.5mm;
-      padding: 1.5mm 0 2mm;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 1.5mm 0;
     }
 
     .stat-badge {
@@ -224,14 +227,14 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(212, 175, 55, 0.35);
       border-radius: 20px;
-      font-size: 2.8mm;
+      font-size: 3mm;
       color: var(--white-soft);
       font-weight: 500;
     }
 
     .stat-badge i {
       color: var(--gold);
-      font-size: 3.2mm;
+      font-size: 3.4mm;
     }
 
     /* ============================================
@@ -243,34 +246,37 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
     }
 
     /* ----- MAIN CONTENT ----- */
     .main {
-      padding: 2mm 4mm 0;
+      padding: 1.5mm 4mm 0;
       display: flex;
       flex-direction: column;
-      gap: 2mm;
+      gap: 1.5mm;
       flex: 1;
       min-height: 0;
       overflow: hidden;
+      justify-content: flex-start;
     }
 
     .main-grid {
       display: flex;
       flex-direction: column;
-      gap: 2mm;
-      flex: 1;
+      gap: 1.5mm;
+      flex: 1 1 auto;
       min-height: 0;
+      justify-content: flex-start;
     }
 
-    /* ----- INSTRUCTOR SECTION (Shaun Daswani) - Compact ----- */
+    /* ----- FOUNDER PROFILE SECTION - Compact ----- */
     .founder-section {
       display: grid;
       grid-template-columns: 26mm 1fr;
-      gap: 3mm;
+      gap: 2.5mm;
       align-items: center;
-      padding: 2.5mm 3mm;
+      padding: 2mm 3mm;
       border: 2px solid var(--gold);
       border-radius: 2mm;
       background: rgba(0, 0, 0, 0.35);
@@ -296,21 +302,21 @@
 
     .founder-content h3 {
       font-family: var(--serif);
-      font-size: 4mm;
+      font-size: 4.2mm;
       font-weight: 600;
       color: var(--gold);
       margin-bottom: 0.5mm;
     }
 
     .founder-content .labels {
-      font-size: 2.7mm;
+      font-size: 2.9mm;
       color: rgba(255, 255, 255, 0.9);
       margin-bottom: 0.5mm;
       font-style: italic;
     }
 
     .founder-content .vision-text {
-      font-size: 2.9mm;
+      font-size: 3.1mm;
       color: var(--white-soft);
       line-height: 1.5;
     }
@@ -319,7 +325,7 @@
     .supporting-boxes {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 3mm;
+      gap: 2mm;
     }
 
     .content-box {
@@ -327,7 +333,7 @@
       background: rgba(255, 255, 255, 0.95);
       color: #1a1a2e;
       border-radius: 2mm;
-      font-size: 2.8mm;
+      font-size: 3mm;
       line-height: 1.45;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       border: 1px solid rgba(212, 175, 55, 0.3);
@@ -337,15 +343,15 @@
 
     /* ----- ECOSYSTEM SYNERGY - Compact flowchart ----- */
     .ecosystem-section {
-      padding: 1.5mm 0;
+      padding: 1mm 0;
       display: flex;
       flex-direction: column;
-      gap: 1.5mm;
+      gap: 1mm;
     }
 
     .ecosystem-title {
       font-family: var(--serif);
-      font-size: 3.5mm;
+      font-size: 3.7mm;
       font-weight: 600;
       color: var(--gold);
       letter-spacing: 0.06em;
@@ -355,15 +361,15 @@
       display: grid;
       grid-template-columns: 1fr auto 1fr auto 1fr;
       align-items: stretch;
-      gap: 3mm;
-      font-size: 2.8mm;
+      gap: 2mm;
+      font-size: 3mm;
     }
 
     .flow-step {
       background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.3) 100%);
       border: 2px solid rgba(212, 175, 55, 0.5);
       border-radius: 2mm;
-      padding: 2mm 3mm;
+      padding: 1.5mm 2.5mm;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -372,7 +378,7 @@
     }
 
     .flow-step .step-icon {
-      font-size: 4.5mm;
+      font-size: 4.7mm;
       color: var(--gold);
       flex-shrink: 0;
     }
@@ -393,23 +399,23 @@
 
     .flow-step .step-num {
       font-weight: 700;
-      font-size: 2.4mm;
+      font-size: 2.6mm;
       color: var(--gold);
     }
 
     .flow-step .step-title {
       font-weight: 700;
-      font-size: 3mm;
+      font-size: 3.2mm;
       color: var(--white);
     }
     .flow-step .step-desc {
       color: rgba(255, 255, 255, 0.85);
-      font-size: 2.5mm;
+      font-size: 2.7mm;
     }
 
     .flow-arrow {
       color: var(--gold);
-      font-size: 5mm;
+      font-size: 5.2mm;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -420,12 +426,12 @@
       padding: 1mm 0;
       display: flex;
       flex-direction: column;
-      gap: 1.5mm;
+      gap: 1mm;
     }
 
     .curriculum-title {
       font-family: var(--serif);
-      font-size: 3.5mm;
+      font-size: 3.7mm;
       font-weight: 600;
       color: var(--gold);
       letter-spacing: 0.06em;
@@ -434,14 +440,14 @@
     .curriculum-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2.5mm;
+      gap: 2mm;
     }
 
     .curriculum-step {
       background: linear-gradient(180deg, rgba(212, 175, 55, 0.18) 0%, rgba(0, 0, 0, 0.25) 100%);
       border: 2px solid rgba(212, 175, 55, 0.45);
       border-radius: 2mm;
-      padding: 2mm 3mm;
+      padding: 1.5mm 2.5mm;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -455,18 +461,18 @@
 
     .curriculum-step .level {
       font-weight: 700;
-      font-size: 3.2mm;
+      font-size: 3.4mm;
       color: var(--gold);
     }
 
     .curriculum-step .topic {
-      font-size: 2.8mm;
+      font-size: 3mm;
       color: var(--white-soft);
       line-height: 1.4;
     }
 
     .curriculum-step .greeks {
-      font-size: 3.2mm;
+      font-size: 2.8mm;
       color: var(--gold);
       letter-spacing: 0.06em;
       font-weight: 700;
@@ -477,12 +483,12 @@
       padding: 1mm 0 0;
       display: flex;
       flex-direction: column;
-      gap: 1.5mm;
+      gap: 1mm;
     }
 
     .impact-section .section-label {
       font-family: var(--serif);
-      font-size: 3.5mm;
+      font-size: 3.7mm;
       font-weight: 600;
       color: var(--gold);
       letter-spacing: 0.06em;
@@ -491,14 +497,14 @@
     .impact-section .impact-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2.5mm;
+      gap: 2mm;
     }
 
     .impact-section .impact-card {
       background: #ffffff;
       border: 2px solid var(--gold);
       border-radius: 2mm;
-      padding: 2.5mm 3mm;
+      padding: 2mm 2.5mm;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -508,7 +514,7 @@
 
     .impact-section .impact-card .growth-icon {
       color: #22c55e;
-      font-size: 6mm;
+      font-size: 6.2mm;
       flex-shrink: 0;
     }
 
@@ -522,14 +528,14 @@
 
     .impact-section .impact-card .amount {
       font-family: var(--serif);
-      font-size: 8mm;
+      font-size: 8.2mm;
       font-weight: 700;
       color: #0a1628;
       line-height: 1.1;
     }
 
     .impact-section .impact-card .label {
-      font-size: 2.5mm;
+      font-size: 2.7mm;
       color: #333;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -539,19 +545,25 @@
     /* ----- FOOTER - Contact & CTA ----- */
     .page-footer {
       flex-shrink: 0;
-      margin-top: auto;
-      padding: 2.5mm 0 0;
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      align-self: stretch;
+      padding: 2.5mm var(--page-margin) 3mm;
+      margin-left: calc(-1 * var(--page-margin));
+      margin-right: calc(-1 * var(--page-margin));
+      margin-bottom: -8mm;
+      background: var(--gold);
+      border-top: 2px solid rgba(10, 22, 40, 0.2);
       text-align: center;
-      font-size: 2.6mm;
-      color: rgba(255, 255, 255, 0.85);
+      font-size: 2.8mm;
+      color: var(--gems-blue);
       letter-spacing: 0.02em;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .page-footer a {
-      color: var(--gold);
+      color: var(--gems-blue);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .page-footer a:hover {
@@ -560,7 +572,8 @@
 
     .page-footer .separator {
       margin: 0 1.5mm;
-      color: rgba(212, 175, 55, 0.5);
+      color: var(--gems-blue);
+      opacity: 0.7;
     }
 
     /* ============================================
@@ -653,15 +666,6 @@
         </div>
       </header>
 
-      <!-- ========== STATS STRIP ========== -->
-      <div class="stats-strip">
-        <span class="stat-badge"><i class="fa-solid fa-users"></i> 1,000+ Students</span>
-        <span class="stat-badge"><i class="fa-solid fa-graduation-cap"></i> 40+ Educators</span>
-        <span class="stat-badge"><i class="fa-solid fa-award"></i> GEMS Rewards Partner</span>
-        <span class="stat-badge"><i class="fa-solid fa-dollar-sign"></i> Zero CapEx</span>
-        <span class="stat-badge"><i class="fa-solid fa-laptop"></i> Powered by IBKR</span>
-      </div>
-
       <!-- ========== BODY: Main Content ========== -->
       <div class="body">
         <main class="main">
@@ -713,7 +717,7 @@
                       <span class="step-num">Step 2</span>
                       <span class="step-title">ACADEMY LEARNING</span>
                     </div>
-                    <div class="step-desc">Instruction by Shaun Daswani & Faculty</div>
+                    <div class="step-desc">Instruction by IMI Faculty</div>
                   </div>
                 </div>
                 <span class="flow-arrow" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
@@ -779,12 +783,21 @@
             </section>
           </div>
         </main>
-
-        <!-- ========== FOOTER ========== -->
-        <footer class="page-footer" aria-label="Contact and links">
-          Contact us at <a href="mailto:shaun@academe.ae">shaun@academe.ae</a><span class="separator">|</span>Visit: <a href="https://improvemeinstitute.com" target="_blank" rel="noopener">improvemeinstitute.com</a>
-        </footer>
       </div>
+
+      <!-- ========== STATS STRIP ========== -->
+      <div class="stats-strip">
+        <span class="stat-badge"><i class="fa-solid fa-users"></i> 1,000+ Students</span>
+        <span class="stat-badge"><i class="fa-solid fa-graduation-cap"></i> 40+ Educators</span>
+        <span class="stat-badge"><i class="fa-solid fa-award"></i> GEMS Rewards Partner</span>
+        <span class="stat-badge"><i class="fa-solid fa-dollar-sign"></i> Zero CapEx</span>
+        <span class="stat-badge"><i class="fa-solid fa-laptop"></i> Powered by IBKR</span>
+      </div>
+
+      <!-- ========== FOOTER ========== -->
+      <footer class="page-footer" aria-label="Contact and links">
+        Contact us at <a href="mailto:shaun@academe.ae">shaun@academe.ae</a><span class="separator">|</span>Visit: <a href="https://improvemeinstitute.com" target="_blank" rel="noopener">improvemeinstitute.com</a>
+      </footer>
     </div>
     </div>
   </div>
