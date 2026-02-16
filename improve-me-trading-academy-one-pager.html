@@ -564,11 +564,16 @@
     }
 
     /* ============================================
-       SCREEN: Scale page to fit viewport
+       SCREEN: Scale page to fit viewport (no max-height so content is never clipped)
        ============================================ */
     @media screen {
       .page {
-        transform-origin: center center;
+        max-width: none;
+        max-height: none;
+        transform-origin: 0 0;
+      }
+      .page-scaler {
+        overflow: hidden;
       }
     }
 
@@ -785,17 +790,28 @@
   </div>
 
   <script>
-    // Scale page to fit viewport on screen
+    // Scale page to fit viewport on screen (wrapper sized to scaled dimensions so nothing is clipped)
     (function() {
       function fitPage() {
+        var scaler = document.getElementById('page-scaler');
         var page = document.querySelector('.page');
-        if (!page || window.matchMedia('print').matches) return;
+        if (!scaler || !page || window.matchMedia('print').matches) return;
         var vw = window.innerWidth;
         var vh = window.innerHeight;
         var pageW = 1123;
         var pageH = 794;
         var scale = Math.min(vw / pageW, vh / pageH, 1);
-        page.style.transform = scale < 1 ? 'scale(' + scale + ')' : 'none';
+        if (scale < 1) {
+          scaler.style.width = (pageW * scale) + 'px';
+          scaler.style.height = (pageH * scale) + 'px';
+          page.style.transform = 'scale(' + scale + ')';
+          page.style.transformOrigin = '0 0';
+        } else {
+          scaler.style.width = '';
+          scaler.style.height = '';
+          page.style.transform = 'none';
+          page.style.transformOrigin = '';
+        }
       }
       window.addEventListener('resize', fitPage);
       fitPage();
@@ -826,21 +842,23 @@
     document.getElementById('download-pdf-btn').addEventListener('click', function() {
       var btn = this;
       var page = document.querySelector('.page');
+      var scaler = document.getElementById('page-scaler');
       if (!page || typeof html2pdf === 'undefined') return;
 
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
 
       var savedTransform = page.style.transform;
-      var savedMaxWidth = page.style.maxWidth;
-      var savedMaxHeight = page.style.maxHeight;
+      var savedTransformOrigin = page.style.transformOrigin;
+      var savedScalerWidth = scaler ? scaler.style.width : '';
+      var savedScalerHeight = scaler ? scaler.style.height : '';
       var container = document.querySelector('.page-container');
       var savedContainerOverflow = container ? container.style.overflow : '';
       page.style.transform = 'none';
-      page.style.maxWidth = '297mm';
-      page.style.maxHeight = '210mm';
+      page.style.transformOrigin = '';
       page.style.width = '297mm';
       page.style.height = '210mm';
+      if (scaler) { scaler.style.width = ''; scaler.style.height = ''; }
       if (container) container.style.overflow = 'visible';
 
       whenImagesLoaded(page).then(function() {
@@ -869,19 +887,19 @@
         return html2pdf().set(opt).from(page).save();
       }).then(function() {
         page.style.transform = savedTransform;
-        page.style.maxWidth = savedMaxWidth;
-        page.style.maxHeight = savedMaxHeight;
+        page.style.transformOrigin = savedTransformOrigin;
         page.style.width = '';
         page.style.height = '';
+        if (scaler) { scaler.style.width = savedScalerWidth; scaler.style.height = savedScalerHeight; }
         if (container) container.style.overflow = savedContainerOverflow;
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF';
       }).catch(function(err) {
         page.style.transform = savedTransform;
-        page.style.maxWidth = savedMaxWidth;
-        page.style.maxHeight = savedMaxHeight;
+        page.style.transformOrigin = savedTransformOrigin;
         page.style.width = '';
         page.style.height = '';
+        if (scaler) { scaler.style.width = savedScalerWidth; scaler.style.height = savedScalerHeight; }
         if (container) container.style.overflow = savedContainerOverflow;
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF';
